@@ -1,0 +1,55 @@
+{
+    "name": "shtty",
+    "version": "0.0.1",
+    "description": "stty wrapper",
+    "author": "maghis",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/maghis/shtty.git"
+    },
+    "main": "./lib/index.js",
+    "types": "./lib/index.d.ts",
+    "typings": "./lib/index.d.ts",
+    "files": [
+        "lib/"
+    ],
+    "directories": {
+        "test": "test"
+    },
+    "keywords": [
+        "node",
+        "typescript"
+    ],
+    "scripts": {
+        "clean": "rm -rf lib",
+        "lint": "tslint --force --format verbose \"src/**/*.ts\"",
+        "build": "npm run clean && npm run lint && tsc",
+        "build:tests": "rm -rf test/build && tsc -p test/",
+        "test": "npm run build:tests && nyc ava --verbose test/build/test",
+        "start": "npm run build && node lib/index.js",
+        "prepublishOnly": "npm run build"
+    },
+    "devDependencies": {
+        "@types/node": "9.4.7",
+        "ava": "0.25.0",
+        "nyc": "11.4.1",
+        "tslint": "5.9.1",
+        "typescript": "2.7.2"
+    },
+    "dependencies": {},
+    "nyc": {
+        "cache": false,
+        "exclude": [
+            "build/**",
+            "test/build/test/**"
+        ],
+        "reporter": [
+            "json",
+            "text",
+            "lcovonly"
+        ],
+        "produce-source-map": true,
+        "all": true
+    }
+}
